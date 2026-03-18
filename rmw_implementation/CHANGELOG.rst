@@ -2,6 +2,18 @@
 Changelog for package rmw_implementation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.1.4 (2025-12-23)
+------------------
+* Updated deprecated ament_index_cpp API (`#272 <https://github.com/ros2/rmw_implementation/issues/272>`_)
+* Contributors: Alejandro Hernández Cordero
+
+3.1.3 (2025-11-18)
+------------------
+* Add rmw_get_clients_info_by_service , rmw_servers_clients_info_by_service (`#238 <https://github.com/ros2/rmw_implementation/issues/238>`_)
+* fix cmake deprecation (`#267 <https://github.com/ros2/rmw_implementation/issues/267>`_)
+* Explain rosidl_typesupport\_{c,cpp} in rmw impl typesupport list (`#265 <https://github.com/ros2/rmw_implementation/issues/265>`_)
+* Contributors: Christophe Bedard, Minju, Lee, mosfet80
+
 3.1.2 (2025-07-29)
 ------------------
 

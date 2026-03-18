@@ -2,6 +2,15 @@
 Changelog for package test_rmw_implementation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.1.4 (2025-12-23)
+------------------
+
+3.1.3 (2025-11-18)
+------------------
+* Add rmw_get_clients_info_by_service , rmw_servers_clients_info_by_service (`#238 <https://github.com/ros2/rmw_implementation/issues/238>`_)
+* fix cmake deprecation (`#267 <https://github.com/ros2/rmw_implementation/issues/267>`_)
+* Contributors: Minju, Lee, mosfet80
+
 3.1.2 (2025-07-29)
 ------------------
 * Test failing deserialization of invalid sequence length (`#261 <https://github.com/ros2/rmw_implementation/issues/261>`_)
