@@ -15,6 +15,7 @@
 #include "functions.hpp"
 
 #include <cstddef>
+#include <filesystem>
 #include <map>
 #include <memory>
 #include <stdexcept>
@@ -34,6 +35,7 @@
 #include "rmw/features.h"
 #include "rmw/get_network_flow_endpoints.h"
 #include "rmw/get_node_info_and_types.h"
+#include "rmw/get_service_endpoint_info.h"
 #include "rmw/get_service_names_and_types.h"
 #include "rmw/get_topic_endpoint_info.h"
 #include "rmw/get_topic_names_and_types.h"
@@ -108,8 +110,8 @@ load_library()
   // OK, we failed to load the default RMW.  Fetch all of the ones we can
   // find and attempt to load them one-by-one.
   rmw_reset_error();
-  const std::map<std::string, std::string> packages_with_prefixes = ament_index_cpp::get_resources(
-    "rmw_typesupport");
+  const std::map<std::string, std::filesystem::path> packages_with_prefixes =
+    ament_index_cpp::get_resources_by_name("rmw_typesupport");
   for (const auto & package_prefix_pair : packages_with_prefixes) {
     if (package_prefix_pair.first != "rmw_implementation") {
       ret = attempt_to_load_one_rmw(package_prefix_pair.first);
@@ -771,6 +773,26 @@ RMW_INTERFACE_FN(
     rmw_topic_endpoint_info_array_t *))
 
 RMW_INTERFACE_FN(
+  rmw_get_clients_info_by_service,
+  rmw_ret_t, RMW_RET_ERROR,
+  5, ARG_TYPES(
+    const rmw_node_t *,
+    rcutils_allocator_t *,
+    const char *,
+    bool,
+    rmw_service_endpoint_info_array_t *))
+
+RMW_INTERFACE_FN(
+  rmw_get_servers_info_by_service,
+  rmw_ret_t, RMW_RET_ERROR,
+  5, ARG_TYPES(
+    const rmw_node_t *,
+    rcutils_allocator_t *,
+    const char *,
+    bool,
+    rmw_service_endpoint_info_array_t *))
+
+RMW_INTERFACE_FN(
   rmw_qos_profile_check_compatible,
   rmw_ret_t, RMW_RET_ERROR,
   5, ARG_TYPES(
@@ -946,6 +968,8 @@ void prefetch_symbols(void)
   GET_SYMBOL(rmw_set_log_severity)
   GET_SYMBOL(rmw_get_publishers_info_by_topic)
   GET_SYMBOL(rmw_get_subscriptions_info_by_topic)
+  GET_SYMBOL(rmw_get_clients_info_by_service)
+  GET_SYMBOL(rmw_get_servers_info_by_service)
   GET_SYMBOL(rmw_qos_profile_check_compatible)
   GET_SYMBOL(rmw_publisher_get_network_flow_endpoints)
   GET_SYMBOL(rmw_subscription_get_network_flow_endpoints)
@@ -1078,6 +1102,8 @@ unload_library()
   symbol_rmw_set_log_severity = nullptr;
   symbol_rmw_get_publishers_info_by_topic = nullptr;
   symbol_rmw_get_subscriptions_info_by_topic = nullptr;
+  symbol_rmw_get_clients_info_by_service = nullptr;
+  symbol_rmw_get_servers_info_by_service = nullptr;
   symbol_rmw_qos_profile_check_compatible = nullptr;
   symbol_rmw_publisher_get_network_flow_endpoints = nullptr;
   symbol_rmw_subscription_get_network_flow_endpoints = nullptr;
