@@ -14,7 +14,7 @@ jobs:
       matrix:
         include:
           - ros: lyrical
-            ubuntu: noble
+            ubuntu: resolute
     name: ROS 2 ${{ matrix.ros }}
     container:
       image: ghcr.io/ros-tooling/setup-ros-docker/setup-ros-docker-ubuntu-${{ matrix.ubuntu }}:latest
